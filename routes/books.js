@@ -82,4 +82,28 @@ router.post('/:id/update', asyncHandler(async (req, res) => {
     }
   }
 }));
+
+/* Delete article form. */
+router.get("/:id/delete", asyncHandler(async (req, res) => {
+  const book = await Book.findByPk(req.params.id);
+  if (book){
+    res.render("books/delete", { book: book, title: "Delete Book" });
+  } else {
+    res.sendStatus(404);
+  }
+  
+}));
+
+/* Delete individual article. */
+router.post('/:id/delete', asyncHandler(async (req ,res) => {
+  const book = await Book.findByPk(req.params.id);
+  if(book) {
+    await book.destroy();
+    res.redirect("/books");
+  } else {
+    res.sendStatus(404);
+  }
+  
+}));
+
 module.exports = router;
