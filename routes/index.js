@@ -14,12 +14,25 @@ function asyncHandler(cb){
   }
 }
 
-
 /* GET home page. */
 router.get('/', asyncHandler(async (req, res, next) => {
+
   const books = await Book.findAll();
   res.json(books);
   //res.render('index', { title: 'Express' });
 }));
+
+//Test-error route
+router.get('/test-error', (req, res, next) => {
+  const error = new Error('Server Error');
+  error.status = 500;
+  return next(error);
+});
+
+//404 error Handler
+
+
+
+//Global error handler
 
 module.exports = router;
