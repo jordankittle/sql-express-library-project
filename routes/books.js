@@ -17,7 +17,10 @@ function asyncHandler(cb){
 /* GET books page. */
 router.get('/', asyncHandler(async (req, res, next) => {
   const books = await Book.findAll();
-  res.render('books/all-books', {books: books, title: "All Books"});
+  const message = req.query.message;
+  const title = req.query.title;
+  const id = req.query.id;
+  res.render('books/all-books', {books, message, title, id, page_title: "All Books"});
 }));
 
 /* GET new books route */
@@ -30,7 +33,7 @@ router.post('/new', asyncHandler(async (req, res) => {
   let book;
   try {
     book = await Book.create(req.body);
-    res.redirect('/books/' + book.id);
+    res.redirect("/books" + `?title="${book.title}"&message=successfully added&id=${book.id}`);
   } catch(error) {
     if(error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
@@ -50,25 +53,25 @@ router.get("/:id", asyncHandler(async (req, res) => {
   }
 }));
 
-/* Update book form. */
-router.get("/:id/update", asyncHandler(async(req, res) => {
-  const book = await Book.findByPk(req.params.id);
-  if (book){
-    res.render("books/update-book", { book: book, title: "Update Book" });
-  } else {
-    res.sendStatus(404);
-  }
+// /* Update book form. Replaced by book-detail page */
+// router.get("/:id/update", asyncHandler(async(req, res) => {
+//   const book = await Book.findByPk(req.params.id);
+//   if (book){
+//     res.render("books/update-book", { book: book, title: "Update Book" });
+//   } else {
+//     res.sendStatus(404);
+//   }
   
-}));
+// }));
 
 /* Update a book. */
-router.post('/:id/update', asyncHandler(async (req, res) => {
+router.post('/:id', asyncHandler(async (req, res) => {
   let book;
   try {
     book = await Book.findByPk(req.params.id);
     if (book){
       await book.update(req.body);
-      res.redirect("/books/" + book.id);
+      res.redirect("/books" + `?title="${book.title}"&message=successfully updated&id=${book.id}`);
     } else {
       res.sendStatus(404);
     }
@@ -99,7 +102,7 @@ router.post('/:id/delete', asyncHandler(async (req ,res) => {
   const book = await Book.findByPk(req.params.id);
   if(book) {
     await book.destroy();
-    res.redirect("/books");
+    res.redirect("/books" + `?message="${book.title}" successfully deleted`);
   } else {
     res.sendStatus(404);
   }

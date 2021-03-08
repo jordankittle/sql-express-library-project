@@ -1,7 +1,13 @@
 extends ../layout
 
 block content
-  h1 Books
+  h1= page_title
+  if(message)
+    p
+      if(title)
+        a(href=`/books/${id}`)
+          | #{title}
+      |  #{message}
   p
     a(href="/books/new")
       button(type="button") Add Book

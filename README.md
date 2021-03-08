@@ -11,3 +11,4 @@ Instructions: Navigate into the project directory and run:
 Changes to supplied styles and formats:
 1.) Changed body padding from 50 to 25px
 2.) Changed button text on Submit and Update book forms to "Submit"
+3.) Added url query support to all-books view so adding and deleting books can show success message to the user about actions that have been performed.
