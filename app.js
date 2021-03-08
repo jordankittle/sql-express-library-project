@@ -38,7 +38,7 @@ app.use('/books', booksRouter);
 
 // 404 Handler
 app.use(function(req, res, next) {
-  const error = new Error(`Page not ${req.originalUrl} not found`);
+  const error = new Error(`Page Not Found`);
   error.status = 404;
   console.log('404 Error handler: ', error.status, error.message);
   res.status(404).render('page-not-found', {error, title: "Page Not Found"});
@@ -56,7 +56,7 @@ app.use(function(err, req, res, next) {
     res.status(404).render('page-not-found', { err, title: "Page Not Found" });
   } else {
     err.messasge = err.message || 'Server error';
-    res.status(err.status || 500).render('error', { err, title: "Server Error" });
+    res.status(err.status || 500).render('error', { err, title: "Page Not Found" });
 
   }
 });

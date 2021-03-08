@@ -1,10 +1,8 @@
 extends layout
 
 block content
-  h1= message
+  h1= error.message
   p Sorry! We couldn't find the page you were looking for.
   br
   p
-    a(class='button', href='books.html') Home
-  h2= error.status
-  pre #{error.stack}
+    a(class='button', href='/books') Home

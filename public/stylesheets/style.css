@@ -3,7 +3,16 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
+a:link {
+  color: #00B7FF;
+}
+a:visited{
+  color: #00B7FF;
+}
+a:hover{
+  color: #00B7FF;
+}
+a:active{
   color: #00B7FF;
 }
 
