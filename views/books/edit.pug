@@ -1,0 +1,12 @@
+extends ../layout 
+
+block content
+
+    include errors
+
+    h1 Edit Book
+
+    include errors
+
+    form(action='/books' +  book.id + '/edit', method='post')
+        include form

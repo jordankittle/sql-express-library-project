@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const Book = require('../models').Book;
 
 /* Handler function to wrap each route. */
 function asyncHandler(cb){
@@ -14,22 +13,15 @@ function asyncHandler(cb){
   }
 }
 
-/* GET home page. */
-router.get('/', (req, res, next) => {
-  res.redirect('/books');
+/* GET books page. */
+router.get('/', asyncHandler(async (req, res, next) => {
+  const books = await Book.findAll();
+  res.json(books);
+}));
+
+/* GET new books route */
+router.get('/new', (req, res, next) => {
+  res.render('books/new', {title: "New Book"});  
 });
-
-//Test-error route
-router.get('/test-error', (req, res, next) => {
-  const error = new Error('Server Error');
-  error.status = 500;
-  return next(error);
-});
-
-//404 error Handler
-
-
-
-//Global error handler
 
 module.exports = router;
