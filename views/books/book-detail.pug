@@ -1,0 +1,12 @@
+extends ../layout 
+
+block content
+
+    include errors
+
+    h1 Update Book
+
+    form(action='/books/' + book.id + '/update', method='post')
+        include form
+    a(href='/books/' + book.id + '/delete')
+        button(type='button') Delete Book

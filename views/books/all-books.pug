@@ -2,10 +2,23 @@ extends ../layout
 
 block content
   h1 Books
-  a(href="/books/new")
-    button(type="button") Add Book
+  p
+    a(href="/books/new")
+      button(type="button") Add Book
     
-  each book in books
-    book
-    a(href = "/books/" + book.id)
-      h3= book.title
+  table
+    thead 
+      tr 
+        th Title 
+        th Author 
+        th Genre
+        th Year 
+    tbody 
+      each book in books
+        tr 
+          book 
+            td 
+              a(href='books/' + book.id)= book.title
+            td= book.author
+            td= book.genre
+            td= book.year
