@@ -15,11 +15,14 @@ function asyncHandler(cb){
 }
 
 /* GET home page. */
-router.get('/', asyncHandler(async (req, res, next) => {
+router.get('/', (req, res, next) => {
+  res.redirect('/books');
+});
 
+/* GET books page. */
+router.get('/books', asyncHandler(async (req, res, next) => {
   const books = await Book.findAll();
   res.json(books);
-  //res.render('index', { title: 'Express' });
 }));
 
 //Test-error route
