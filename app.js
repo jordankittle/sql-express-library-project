@@ -42,7 +42,6 @@ app.use(function(req, res, next) {
   error.status = 404;
   console.log('404 Error handler: ', error.status, error.message);
   next(error);
-  //res.status(404).render('page-not-found', {error, title: "Page Not Found"});
 });
 
 // Global error handler
@@ -51,7 +50,7 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // render the page-not-found page for a 404 error and error page for all others
   console.log('Error', err.status, err.message);
   if (err.status === 404) {
     res.status(404).render('page-not-found', { err, title: "Page Not Found" });
