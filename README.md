@@ -8,3 +8,5 @@ Instructions: Navigate into the project directory and run:
  $ npm install
  $ npm start
 
+Changes to supplied styles:
+1.) Changed body padding from 50 to 25px

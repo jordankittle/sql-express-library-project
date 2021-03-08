@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  h1 Books
+  a(href="/books/new")
+    button(type="button") Add Book
+    
+  each book in books
+    book
+    a(href = "/books/" + book.id)
+      h3= book.title
