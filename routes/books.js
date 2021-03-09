@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Book = require('../models').Book;
+const { Op } = require("sequelize");
 
 /* Handler function to wrap each route. */
 function asyncHandler(cb){
@@ -40,6 +41,45 @@ router.post('/new', asyncHandler(async (req, res) => {
       res.render('books/new-book', {book: book, errors: error.errors, title: "New Book"});
     }
   }
+}));
+
+/* Search books */
+router.get('/search', asyncHandler(async (req, res, next) => {
+  const query = req.query.query;
+  const final_query = `%${query}%`;
+  let book;
+  try{
+    const books = await Book.findAll({
+      where: {
+        [Op.or]: [
+          {
+            title: {
+              [Op.like]: final_query
+            }
+          },
+          {
+            author: {
+              [Op.like]: final_query
+            }
+          },
+          {
+            genre: {
+              [Op.like]: final_query
+            }
+          },
+          {
+            year: {
+              [Op.like]: final_query
+            }
+          }
+        ],
+      }
+    });
+    res.render('books/all-books', {books, page_title: "Results"} );
+  } catch(error){
+    next(error);
+  }
+  
 }));
 
 /* GET single book page */
