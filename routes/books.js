@@ -17,11 +17,20 @@ function asyncHandler(cb){
 
 /* GET books page. */
 router.get('/', asyncHandler(async (req, res, next) => {
-  const books = await Book.findAll();
   const message = req.query.message;
   const title = req.query.title;
   const id = req.query.id;
-  res.render('books/index', {books, message, title, id, page_title: "All Books"});
+  const page = 1;
+  const limit = 10;
+  const offset = 0;
+  const allBooks = await Book.findAll();
+  const numberOfBooks = allBooks.length;
+  const pages = Math.ceil(numberOfBooks / limit);
+  const books = await Book.findAll({
+    offset: offset,
+    limit: 10
+  });
+  res.render('books/index', {books, page, pages, message, title, id, page_title: "All Books"});
 }));
 
 /*Get books pagination page */
