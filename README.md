@@ -12,7 +12,6 @@ Instructions: Navigate into the project directory and run:
  1.) You can test the 500 error handling by visting the /test-error route
 
 Changes to supplied styles and formats:
-1.) Changed body padding from 50 to 25px
-2.) Changed button text on Submit and Update book forms to "Submit." This way I can re-use the form.
-3.) Changed "create new book" link to "Add Book" button. I think it looks more professional.
+1.) Changed button text on Submit and Update book forms to "Submit." This way I can re-use the form.
+2.) Changed "create new book" link to "Add Book" button. I think it looks more professional.
 3.) Added url query support to all-books view so adding and deleting books can show success message to the user about actions that have been performed.
