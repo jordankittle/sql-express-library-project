@@ -184,7 +184,7 @@ router.get('/search', asyncHandler(async (req, res, next) => {
 router.get("/:id", asyncHandler(async (req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
-    res.render("books/book-detail", { book: book, title: book.title }); 
+    res.render("books/update-book", { book: book, title: book.title }); 
   } else {
     console.log("book route not found");
     const error = new Error("Page Not Found");
@@ -211,7 +211,7 @@ router.post('/:id', asyncHandler(async (req, res) => {
     if(error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
       book.id = req.params.id;
-      res.render("books/book-detail", {book: book, errors: error.errors, title: "Update Book"});
+      res.render("books/update-book", {book: book, errors: error.errors, title: "Update Book"});
     } else {
       throw error;
     }
