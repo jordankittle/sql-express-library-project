@@ -2,9 +2,9 @@ extends ../layout
 
 block content
 
-    include errors
-
     h1 New Book
+    
+    include errors
 
     form(action='/books/new', method='post')
         include form

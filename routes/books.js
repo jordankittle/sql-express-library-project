@@ -21,7 +21,7 @@ router.get('/', asyncHandler(async (req, res, next) => {
   const message = req.query.message;
   const title = req.query.title;
   const id = req.query.id;
-  res.render('books/all-books', {books, message, title, id, page_title: "All Books"});
+  res.render('books/index', {books, message, title, id, page_title: "All Books"});
 }));
 
 /* GET new books route */
@@ -75,7 +75,7 @@ router.get('/search', asyncHandler(async (req, res, next) => {
         ],
       }
     });
-    res.render('books/all-books', {books, page_title: "Results"} );
+    res.render('books/index', {books, page_title: "Results"} );
   } catch(error){
     next(error);
   }
