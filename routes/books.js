@@ -135,13 +135,14 @@ router.get('/search/:page', asyncHandler(async (req, res, next) => {
     }  
   });
   console.log(books.length);
-  res.render('books/results', {books, page, pages, query, page_title: "Results"} );
+  const queryText = query.length > 1 ? `"${query}"` : 'all books'
+  res.render('books/results', {books, page, pages, query, page_title: `Results for ${queryText}`} );
  
   
 }));
 
 
-/* Search books */
+/* Search books without pagination */
 router.get('/search', asyncHandler(async (req, res, next) => {
   const query = req.query.query;
   const final_query = `%${query}%`;
