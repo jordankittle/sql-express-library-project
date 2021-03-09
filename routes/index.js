@@ -26,10 +26,4 @@ router.get('/test-error', (req, res, next) => {
   return next(error);
 });
 
-//404 error Handler
-
-
-
-//Global error handler
-
 module.exports = router;

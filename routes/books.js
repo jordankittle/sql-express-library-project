@@ -141,7 +141,6 @@ router.get('/search/:page', asyncHandler(async (req, res, next) => {
   
 }));
 
-
 /* Search books without pagination */
 router.get('/search', asyncHandler(async (req, res, next) => {
   const query = req.query.query;
@@ -195,7 +194,6 @@ router.get("/:id", asyncHandler(async (req, res, next) => {
   }
 }));
 
-
 /* Update a book. */
 router.post('/:id', asyncHandler(async (req, res) => {
   let book;
@@ -243,6 +241,5 @@ router.post('/:id/delete', asyncHandler(async (req ,res, next) => {
   }
   
 }));
-
 
 module.exports = router;

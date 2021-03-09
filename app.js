@@ -22,7 +22,6 @@ var sequelize = require('./models').sequelize;
   }
 })();
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -42,7 +41,9 @@ app.use(function(req, res, next) {
   error.status = 404;
   console.log('404 Error handler: ', error.status, error.message);
   res.status(404).render('page-not-found', { error, title: "Page Not Found" });
-  //return next(error);
+  //rendering page-not-found here in 404 handler instead of global handler
+  // as per project instructions. Otherwise, I would use the call below
+  //return next(error); 
 });
 
 // Global error handler

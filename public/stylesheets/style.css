@@ -7,7 +7,7 @@ a {
   color: #019875;
   text-decoration: none;
   font-weight: bold;
-  transition: 0.4s;
+  /* transition: 0.4s; */
 }
 
   a:hover {
@@ -26,7 +26,7 @@ a.button, input[type=submit] {
 
 form a.button, input[type=submit] {
   margin-left: 140px;
-  transition: 0.4s;
+  /* transition: 0.4s; */
 }
 
 input[type=submit] {
@@ -75,7 +75,7 @@ label {
   font-weight: bold;
   min-width: 130px;
   display: inline-block;
-  transition: 0.4s;
+  /* transition: 0.4s; */
 }
 
 input {
@@ -84,7 +84,7 @@ input {
   font-size: 14px;
   border-radius: 2px;
   border-color: #E7E7E7;
-  transition: 0.4s;
+  /* transition: 0.4s; */
 }
 
 input[type=text] {
