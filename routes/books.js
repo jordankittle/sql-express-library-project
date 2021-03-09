@@ -181,12 +181,16 @@ router.get('/search', asyncHandler(async (req, res, next) => {
 }));
 
 /* GET single book page */
-router.get("/:id", asyncHandler(async (req, res) => {
+router.get("/:id", asyncHandler(async (req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
     res.render("books/book-detail", { book: book, title: book.title }); 
   } else {
-    res.sendStatus(404);
+    console.log("book route not found");
+    const error = new Error("Page Not Found");
+    error.status = 404;
+    return next(error);
+    //res.sendStatus(404);
 
   }
 }));
@@ -226,7 +230,7 @@ router.get("/:id/delete", asyncHandler(async (req, res) => {
 }));
 
 /* Delete individual article. */
-router.post('/:id/delete', asyncHandler(async (req ,res) => {
+router.post('/:id/delete', asyncHandler(async (req ,res, next) => {
   const book = await Book.findByPk(req.params.id);
   if(book) {
     await book.destroy();
@@ -236,5 +240,6 @@ router.post('/:id/delete', asyncHandler(async (req ,res) => {
   }
   
 }));
+
 
 module.exports = router;
