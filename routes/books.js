@@ -24,6 +24,24 @@ router.get('/', asyncHandler(async (req, res, next) => {
   res.render('books/index', {books, message, title, id, page_title: "All Books"});
 }));
 
+/*Get books pagination page */
+router.get('/page/:page', asyncHandler(async (req, res, next) =>{
+  const message = req.query.message;
+  const title = req.query.title;
+  const id = req.query.id;
+  const page = parseInt(req.params.page);
+  const limit = 10;
+  const offset = limit * (page-1);
+  const allBooks = await Book.findAll();
+  const numberOfBooks = allBooks.length;
+  const pages = Math.ceil(numberOfBooks / limit);
+  const books = await Book.findAll({
+    offset: offset,
+    limit: 10,
+  });
+  res.render('books/index', {books, page, pages, message, title, id, page_title: "All Books"})
+}));
+
 /* GET new books route */
 router.get('/new', (req, res, next) => {
   res.render('books/new-book', {book: {}, title: "New Book"});  
@@ -42,6 +60,77 @@ router.post('/new', asyncHandler(async (req, res) => {
     }
   }
 }));
+
+/* Search books with pagination */
+router.get('/search/:page', asyncHandler(async (req, res, next) => {
+  const query = req.query.query;
+  const final_query = `%${query}%`;
+  const page = parseInt(req.params.page);
+  const limit = 10;
+  const offset = limit * (page-1);
+  const allBooks = await Book.findAll({
+    where: {
+      [Op.or]: [
+        {
+          title: {
+            [Op.like]: final_query
+          }
+        },
+        {
+          author: {
+            [Op.like]: final_query
+          }
+        },
+        {
+          genre: {
+            [Op.like]: final_query
+          }
+        },
+        {
+          year: {
+            [Op.like]: final_query
+          }
+        }
+      ],
+    }
+  });
+  const numberOfBooks = allBooks.length;
+  const pages = Math.ceil(numberOfBooks / limit);
+  console.log(numberOfBooks, pages);
+  const books = await Book.findAll({
+    offset: offset,
+    limit:10,
+    where: {
+      [Op.or]: [
+        {
+          title: {
+            [Op.like]: final_query
+          }
+        },
+        {
+          author: {
+            [Op.like]: final_query
+          }
+        },
+        {
+          genre: {
+            [Op.like]: final_query
+          }
+        },
+        {
+          year: {
+            [Op.like]: final_query
+          }
+        }
+      ],
+    }  
+  });
+  console.log(books.length);
+  res.render('books/results', {books, page, pages, query, page_title: "Results"} );
+ 
+  
+}));
+
 
 /* Search books */
 router.get('/search', asyncHandler(async (req, res, next) => {

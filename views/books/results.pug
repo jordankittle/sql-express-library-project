@@ -25,16 +25,18 @@ block content
         tr 
           book 
             td 
-              a(href='books/' + book.id)= book.title
+              a(href='/books/' + book.id)= book.title
             td= book.author
             td= book.genre
             td= book.year
   - var i = 0;
-  ul.pagination
-    while i < pages 
-      li
-        if page === ++i
-          a.pagination.active(href=`/books/page/${i}`) #{i}
-        else
-          a.pagination(href=`/books/page/${i}`) #{i}
-        |  #[span &nbsp;]
+  if pages > 1
+    ul.pagination
+        while i < pages 
+            li
+                if page === ++i
+                    a.pagination.active(href=`/books/search/${i}?query=${query}`) #{i}
+                else
+                    a.pagination(href=`/books/search/${i}?query=${query}`) #{i}
+                |  #[span &nbsp;]
+  
