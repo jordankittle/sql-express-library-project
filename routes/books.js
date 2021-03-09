@@ -135,7 +135,7 @@ router.get('/search/:page', asyncHandler(async (req, res, next) => {
     }  
   });
   console.log(books.length);
-  const queryText = query.length > 1 ? `"${query}"` : 'all books'
+  const queryText = query.length > 0 ? `"${query}"` : 'all books'
   res.render('books/results', {books, page, pages, query, page_title: `Results for ${queryText}`} );
  
   
